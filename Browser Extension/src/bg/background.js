@@ -6,24 +6,27 @@ function ajax(url)
 	  var xhttp;
 	  var url1="http://localhost:8000/?readData="+url;
 	  //var url1="http://127.0.0.1:8000/"+url;
-  xhttp=new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-		//alert(xhttp.responseText);
-		if (xhttp.responseText=="is suspicious")
+	  
+	      fetch("http://localhost:8000/?readData="+url, {
+      method: 'GET',
+      headers: {
+        
+        'Content-Type': 'application/text'
+      }
+    }).then(res => {
+		alert(res.Text);
+		if (res.Text =="is suspicious")
 			alert("this page is suspicious");
-		else if (xhttp.responseText=="is not safe")
+		else if (res.Text =="is not safe")
 			alert("this page is not safe");
-    }
-	 
-  };
-  if(url1 !=lastURL)
-  {
-  xhttp.open("GET", url1, true);
-  xhttp.send();
-  lastURL=url1;
-  }
+      //return res.Text();
+    }).then(res => {
+      //senderResponse(res);
+    })
+
 }
+
+// background script
 
 
 
